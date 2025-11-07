@@ -40,6 +40,10 @@ wheels/
 .env.local
 .env.*.local
 .env.production.local
+# Allow .env.example files for reference
+!.env.example
+!backend/.env.example
+!frontend_v2/.env.example
 
 # Next.js
 frontend_v2/.next/
