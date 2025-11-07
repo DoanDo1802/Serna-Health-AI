@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3000'),
   title: 'Serna Health AI - Medical AI Analysis Platform',
   description: 'Advanced AI-powered medical imaging analysis platform for lung cancer detection, tumor segmentation, and clinical recommendations',
   generator: 'Next.js',
@@ -45,7 +46,14 @@ export default function RootLayout({
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
-html { font-family: var(--font-sans); }
+html {
+  font-family: var(--font-sans);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
         `}</style>
       </head>
       <body className="bg-neutral-950">{children}</body>

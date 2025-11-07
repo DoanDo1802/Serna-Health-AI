@@ -208,33 +208,43 @@ export default function Chat({ messages, setMessages, isLoading, setIsLoading, h
   return (
     <>
       <style>{scrollbarHideStyle}</style>
-      <div className="flex-1 flex flex-col h-full w-full relative overflow-hidden">
+      <div
+        className="flex-1 flex flex-col h-full w-full relative overflow-hidden rounded-lg"
+        style={{
+          backgroundImage: 'url(/images/bacground_serna_v2-2.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {/* Overlay to make background lighter */}
+        <div className="absolute inset-0 bg-neutral-950/40 pointer-events-none rounded-lg"></div>
         {/* Messages area */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 text-black scrollbar-hide">
-        {messages.length === 0 ? (
-          <div className="h-full flex items-center justify-center px-6">
-            <div className="text-center max-w-sm">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-3">
-                <Send className="h-6 w-6 text-white/40" />
-              </div>
-                  <h2 className="text-lg font-semibold text-white mb-1">AI Health Advisor</h2>
-                  <p className="text-sm text-white/50">Ask about symptoms, risks, and lung cancer prevention.</p>
-            </div>
-          </div>
-        ) : (
-          messages.map((message) => (
-            <div key={message.id} className="space-y-2">
-              <div className={`flex items-start gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}>
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium shrink-0 ${
-                    message.role === "user"
-                      ? "bg-neutral-800 text-white border border-white/10"  
-                      : "bg-neutral-800 text-white border border-white/10"
-                  }`}
-                >
-                  {message.role === "user" ? "U" : "AI"}
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 text-black scrollbar-hide relative z-10">
+          {messages.length === 0 ? (
+            <div className="h-full flex items-center justify-center px-6">
+              <div className="text-center max-w-sm">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-3">
+                  <Send className="h-6 w-6 text-white/40" />
                 </div>
-                <div
+                <h2 className="text-lg font-semibold text-white mb-1">AI Health Advisor</h2>
+                <p className="text-sm text-white/50">Ask about symptoms, risks, and lung cancer prevention.</p>
+              </div>
+            </div>
+          ) : (
+            messages.map((message) => (
+              <div key={message.id} className="space-y-2">
+                <div className={`flex items-start gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium shrink-0 ${
+                      message.role === "user"
+                        ? "bg-neutral-800 text-white border border-white/10"
+                        : "bg-neutral-800 text-white border border-white/10"
+                    }`}
+                  >
+                    {message.role === "user" ? "U" : "AI"}
+                  </div>
+                  <div
                     className={`flex-1 flex ${
                       message.role === "user" ? "justify-end" : "justify-start"
                     }`}
@@ -249,21 +259,18 @@ export default function Chat({ messages, setMessages, isLoading, setIsLoading, h
                       </div>
 
                       <div
-                        className={`text-sm text-white/90 leading-relaxed ${
-                          message.role === "user"
-                            ? "bg-neutral-600/20 rounded-lg p-3 text-left"
-                            : "text-left"
-                        }`}
+                        className="text-sm text-white/90 leading-relaxed rounded-lg p-3 bg-neutral-700/60 border border-neutral-600/80 text-left"
                         dangerouslySetInnerHTML={{
                           __html: formatMarkdown(message.content)
                         }}
                       />
                     </div>
                   </div>
+                </div>
               </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+
         {isLoading && (
           <div className="space-y-2">
             <div className="flex items-start gap-3">
@@ -287,68 +294,68 @@ export default function Chat({ messages, setMessages, isLoading, setIsLoading, h
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
-      </div>
+          <div ref={messagesEndRef} />
+        </div>
 
-      {/* Input area */}
-      <div className="shrink-0 border-t border-white/10 bg-neutral-900/60 backdrop-blur-xl p-4">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 bg-neutral-900 border border-white/20 rounded-lg px-3 py-2">
-          {/* Textarea - Top */}
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about lung cancer symptoms or risks..."
-            className="flex-1 h-[60px] resize-none bg-transparent border-0 text-white placeholder:text-white/40 focus-visible:ring-0 focus-visible:border-0 text-sm p-0"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault()
-                handleSubmit(e)
-              }
-            }}
-          />
+        {/* Input area */}
+        <div className="shrink-0 border-t border-white/10 bg-neutral-900/60 backdrop-blur-xl p-4 relative z-10">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 bg-neutral-900 border border-white/20 rounded-lg px-3 py-2">
+            {/* Textarea - Top */}
+            <Textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask about lung cancer symptoms or risks..."
+              className="flex-1 h-[60px] resize-none bg-transparent border-0 text-white placeholder:text-white/40 focus-visible:ring-0 focus-visible:border-0 text-sm p-0"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault()
+                  handleSubmit(e)
+                }
+              }}
+            />
 
-          {/* Divider */}
-          <div className="h-px bg-white/10" />
+            {/* Divider */}
+            <div className="h-px bg-white/10" />
 
-          {/* Controls - Bottom */}
-          <div className="flex items-center justify-between gap-2">
-            {/* Left - Health Mode + Status */}
-            <div className="flex items-center gap-2">
-              {/* Health Mode Button */}
+            {/* Controls - Bottom */}
+            <div className="flex items-center justify-between gap-2">
+              {/* Left - Health Mode + Status */}
+              <div className="flex items-center gap-2">
+                {/* Health Mode Button */}
+                <Button
+                  type="button"
+                  size="sm"
+                  disabled={!hasPatientInfo}
+                  onClick={() => setHealthMode(!healthMode)}
+                  className={`rounded-full h-6 px-2 text-xs transition-all ${
+                    healthMode
+                      ? 'bg-green-600 hover:bg-green-700 text-white'
+                      : 'bg-neutral-700 hover:bg-neutral-600 text-white'
+                  }`}
+                >
+                  Health Mode
+                </Button>
+
+                {/* Status Indicator */}
+                <div
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    hasPatientInfo ? 'bg-green-500' : 'bg-red-500'
+                  }`}
+                  title={hasPatientInfo ? 'Patient info available' : 'No patient info'}
+                />
+              </div>
+
+              {/* Right - Send Button */}
               <Button
-                type="button"
-                size="sm"
-                disabled={!hasPatientInfo}
-                onClick={() => setHealthMode(!healthMode)}
-                className={`rounded-full h-6 px-2 text-xs transition-all ${
-                  healthMode
-                    ? 'bg-green-600 hover:bg-green-700 text-white'
-                    : 'bg-neutral-700 hover:bg-neutral-600 text-white'
-                }`}
+                type="submit"
+                disabled={!input.trim() || isLoading}
+                className="rounded-full h-6 px-3 text-xs"
               >
-                Health Mode
+                <Send className="h-3 w-3" />
               </Button>
-
-              {/* Status Indicator */}
-              <div
-                className={`w-2 h-2 rounded-full transition-all ${
-                  hasPatientInfo ? 'bg-green-500' : 'bg-red-500'
-                }`}
-                title={hasPatientInfo ? 'Patient info available' : 'No patient info'}
-              />
             </div>
-
-            {/* Right - Send Button */}
-            <Button
-              type="submit"
-              disabled={!input.trim() || isLoading}
-              className="rounded-full h-6 px-3 text-xs"
-            >
-              <Send className="h-3 w-3" />
-            </Button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
       </div>
     </>
   )

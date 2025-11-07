@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useRef, useState, useEffect } from "react"
-import DotGridShader from "@/components/DotGridShader"
 import { UserMenu } from "@/components/user-menu"
 import PatientForm from "./components/PatientForm"
 import ImageUpload from "./components/ImageUpload"
@@ -297,13 +296,20 @@ export default function HomePage() {
 
 
   return (
-    <div className="relative w-full h-screen bg-neutral-950 overflow-hidden">
-      <DotGridShader className="absolute inset-0 z-0" />
-      <div className="relative z-10 flex h-full w-full">
+    <div
+      className="relative w-full h-screen overflow-hidden"
+      style={{
+        backgroundImage: 'url(/images/bacground_serna_v2-2.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="relative z-10 flex h-full w-full gap-4 p-4">
         {/* Left side - Chat Interface */}
-        <div className="w-full lg:w-[440px] flex flex-col h-full border-r border-white/10 bg-neutral-950">
+        <div className="w-full lg:w-[440px] flex flex-col h-full rounded-lg bg-neutral-950 border border-neutral-600/80">
           {/* Header */}
-          <header className="shrink-0 border-b border-white/10 bg-neutral-900/60 backdrop-blur-xl h-12 flex items-center justify-between px-4">
+          <header className="shrink-0 border-b border-white/10 bg-neutral-900/40 backdrop-blur-xl h-12 flex items-center justify-between px-4 rounded-t-lg">
             <div className="font-extrabold text-white tracking-tight">Serna Health AI</div>
           </header>
 
@@ -340,9 +346,9 @@ export default function HomePage() {
         </div>
 
         {/* Right side - Preview Panel */}
-        <div className="hidden lg:flex flex-1 flex-col bg-neutral-900/30">
+        <div className="hidden lg:flex flex-1 flex-col bg-neutral-900/30 rounded-lg border border-neutral-600/80">
           {/* Preview Header */}
-          <header className="shrink-0 border-b border-white/10 bg-neutral-900/60 backdrop-blur-xl h-12 px-4 flex items-center justify-between">
+          <header className="shrink-0 border-b border-white/10 bg-neutral-900/40 backdrop-blur-xl h-12 px-4 flex items-center justify-between rounded-t-lg">
             <div className="flex items-center gap-2">
               <Eye className="h-4 w-4 text-white/60" />
               <h2 className="text-sm font-semibold text-white">Preview</h2>
@@ -432,7 +438,7 @@ export default function HomePage() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                           {/* Left: Image */}
                           <div className="w-full">
-                            <div 
+                            <div
                               className="w-full aspect-square rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden cursor-pointer hover:border-white/20 transition-all duration-300 group"
                               onDoubleClick={() => {
                                 if (result?.overlayImageUrl || imageUrl) {

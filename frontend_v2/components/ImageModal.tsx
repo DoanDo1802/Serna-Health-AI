@@ -72,7 +72,8 @@ export function ImageModal({ isOpen, onClose, imageUrl, alt = "Image" }: ImageMo
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-7xl max-h-[90vh] p-0 bg-black/95 border-white/20">
+      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-black/95 border-white/20">
+
         <DialogHeader className="p-4 border-b border-white/10">
           <div className="flex items-center justify-between">
             <DialogTitle className="text-white text-lg font-semibold">

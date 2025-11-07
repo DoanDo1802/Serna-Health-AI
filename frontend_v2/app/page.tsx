@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import DotGridShader from "@/components/DotGridShader"
 
 import ProjectCard from "@/components/project-card"
-import AnimatedHeading from "@/components/animated-heading"
 import RevealOnView from "@/components/reveal-on-view"
 
 export default function Page() {
@@ -65,11 +64,10 @@ export default function Page() {
                   <div className="h-2 w-2 rounded-full bg-white/60" aria-hidden="true" />
                 </div>
 
-                {/* Headline with intro blur effect */}
-                <AnimatedHeading
-                  className="mt-35 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl"
-                  lines={["AI-Powered Lung Cancer Segmentation"]}
-                />
+                {/* Headline */}
+                <h1 className="mt-35 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
+                  AI-Powered Lung Cancer Segmentation
+                </h1>
 
                 <p className="mt-6 max-w-[52ch] text-lg text-white/70">
                   AI platform for CT and X-ray–based lung cancer detection, segmentation, and reporting

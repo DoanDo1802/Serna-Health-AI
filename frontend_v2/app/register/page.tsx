@@ -10,7 +10,6 @@ import { createClient } from "@/lib/supabase/client"
 
 import { Button } from "@/components/ui/button"
 import DotGridShader from "@/components/DotGridShader"
-import RevealOnView from "@/components/reveal-on-view"
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("")
@@ -58,12 +57,19 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <main className="bg-neutral-950 text-white min-h-screen flex items-center justify-center p-4">
-        <RevealOnView
-          as="div"
-          intensity="hero"
-          className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60 p-8"
-        >
+      <main
+        className="bg-neutral-950 text-white min-h-screen flex items-center justify-center p-4 relative"
+        style={{
+          backgroundImage: 'url(/images/bacground_serna_v2-2.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {/* Overlay to make background lighter */}
+        <div className="absolute inset-0 bg-neutral-950/40 pointer-events-none"></div>
+
+        <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/5 bg-neutral-900/40 p-8 z-10 backdrop-blur-sm">
           <div className="pointer-events-none absolute inset-0 opacity-5 mix-blend-soft-light">
             <DotGridShader />
           </div>
@@ -82,18 +88,25 @@ export default function RegisterPage() {
           <Button asChild size="lg" className="w-full rounded-full">
             <Link href="/login">Go to login</Link>
           </Button>
-        </RevealOnView>
+        </div>
       </main>
     )
   }
 
   return (
-    <main className="bg-neutral-950 text-white min-h-screen flex items-center justify-center p-4">
-      <RevealOnView
-        as="div"
-        intensity="hero"
-        className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60 p-8"
-      >
+    <main
+      className="bg-neutral-950 text-white min-h-screen flex items-center justify-center p-4 relative"
+      style={{
+        backgroundImage: 'url(/images/bacground_serna_v2-2.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Overlay to make background lighter */}
+      <div className="absolute inset-0 bg-neutral-950/40 pointer-events-none"></div>
+
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/5 bg-neutral-900/40 p-8 z-10 backdrop-blur-sm">
         {/* Texture background */}
         <div className="pointer-events-none absolute inset-0 opacity-5 mix-blend-soft-light">
           <DotGridShader />
@@ -183,7 +196,7 @@ export default function RegisterPage() {
             Sign in
           </Link>
         </p>
-      </RevealOnView>
+      </div>
     </main>
   )
 }
