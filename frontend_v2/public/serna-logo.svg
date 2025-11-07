@@ -1,0 +1,55 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle background -->
+  <circle cx="100" cy="100" r="95" fill="url(#logoGradient)" opacity="0.1" stroke="url(#logoGradient)" stroke-width="2"/>
+  
+  <!-- Main circle -->
+  <circle cx="100" cy="100" r="85" fill="url(#logoGradient)"/>
+  
+  <!-- Inner lighter circle for depth -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  
+  <!-- Lung/Medical symbol - stylized -->
+  <!-- Left lung -->
+  <path d="M 70 60 Q 60 70 60 85 Q 60 105 75 110 Q 70 100 70 85 Q 70 75 75 65 Z" fill="rgba(255,255,255,0.9)"/>
+  
+  <!-- Right lung -->
+  <path d="M 130 60 Q 140 70 140 85 Q 140 105 125 110 Q 130 100 130 85 Q 130 75 125 65 Z" fill="rgba(255,255,255,0.9)"/>
+  
+  <!-- Center heart/pulse line -->
+  <path d="M 100 50 L 100 150" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Pulse points -->
+  <circle cx="100" cy="70" r="3" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="100" cy="100" r="3" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="100" cy="130" r="3" fill="rgba(255,255,255,0.8)"/>
+  
+  <!-- AI/Tech elements - small dots around -->
+  <circle cx="85" cy="75" r="2" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="115" cy="75" r="2" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="80" cy="100" r="2" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="120" cy="100" r="2" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="85" cy="125" r="2" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="115" cy="125" r="2" fill="rgba(255,255,255,0.7)"/>
+  
+  <!-- Connecting lines for tech feel -->
+  <line x1="85" y1="75" x2="100" y2="85" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+  <line x1="115" y1="75" x2="100" y2="85" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+  <line x1="80" y1="100" x2="95" y2="100" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+  <line x1="120" y1="100" x2="105" y2="100" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+  
+  <!-- Outer accent ring -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="url(#accentGradient)" stroke-width="1.5" opacity="0.6"/>
+</svg>
+

@@ -1,0 +1,13 @@
+flask
+flask-cors
+tensorflow
+pillow
+numpy
+pandas
+scikit-learn
+joblib
+xgboost
+google-genai
+python-dotenv
+ultralytics
+
