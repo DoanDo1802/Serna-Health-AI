@@ -10,4 +10,5 @@ xgboost
 google-genai
 python-dotenv
 ultralytics
+gunicorn
 
