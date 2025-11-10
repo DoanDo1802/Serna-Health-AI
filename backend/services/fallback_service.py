@@ -78,12 +78,12 @@ def generate_ai_recommendations(age, gender_text, all_factors,
     # Prepare assessment instruction based on whether we have overlay image
     if overlay_image and tumor_detected:
         assessment_instruction = """Phân tích CHI TIẾT hình ảnh CT scan được tô vùng:
-- Mô tả vị trí chính xác của vùng bất thường
-- Kích thước ước tính của tổn thương
-- Đặc điểm hình ảnh (mật độ, ranh giới, hình dạng)
-- Mối liên hệ với các cấu trúc giải phẫu xung quanh
-- Đánh giá mức độ nguy hiểm dựa trên hình ảnh
-- Kết hợp với thông tin bệnh nhân và yếu tố nguy cơ để đưa ra nhận định lâm sàng toàn diện"""
+            - Mô tả vị trí chính xác của vùng bất thường
+            - Kích thước ước tính của tổn thương
+            - Đặc điểm hình ảnh (mật độ, ranh giới, hình dạng)
+            - Mối liên hệ với các cấu trúc giải phẫu xung quanh
+            - Đánh giá mức độ nguy hiểm dựa trên hình ảnh
+            - Kết hợp với thông tin bệnh nhân và yếu tố nguy cơ để đưa ra nhận định lâm sàng toàn diện"""
     else:
         assessment_instruction = "Phân tích tổng hợp tình trạng bệnh nhân dựa trên thông tin lâm sàng và yếu tố nguy cơ"
 
@@ -98,31 +98,31 @@ def generate_ai_recommendations(age, gender_text, all_factors,
 
     system_prompt = f"""Bạn là bác sĩ chuyên khoa ung bướu chuyên về ung thư phổi, có hơn 15 năm kinh nghiệm lâm sàng.
 
-THÔNG TIN BỆNH NHÂN:
-• Tuổi: {age}
-• Giới tính: {gender_text}
-• Yếu tố nguy cơ:
-{factors_text}
+            THÔNG TIN BỆNH NHÂN:
+            • Tuổi: {age}
+            • Giới tính: {gender_text}
+            • Yếu tố nguy cơ:
+            {factors_text}
 
-KẾT QUẢ PHÂN TÍCH AI:
-• Mô hình đánh giá nguy cơ ung thư phổi: {lung_cancer_label}
-• Phát hiện vùng bất thường trên CT scan: {"Có" if tumor_detected else "Không"}
-• Phân loại tổn thương: {cancer_stage_class if cancer_stage_class != 'Unknown' else 'Chưa phân loại'}
+            KẾT QUẢ PHÂN TÍCH AI:
+            • Mô hình đánh giá nguy cơ ung thư phổi: {lung_cancer_label}
+            • Phát hiện vùng bất thường trên CT scan: {"Có" if tumor_detected else "Không"}
+            • Phân loại tổn thương: {cancer_stage_class if cancer_stage_class != 'Unknown' else 'Chưa phân loại'}
 
-{image_section}
-YÊU CẦU:
-Dựa trên thông tin bệnh nhân, kết quả phân tích AI{image_mention}, hãy đưa ra khuyến nghị y khoa với ĐÚNG 3 mục sau (KHÔNG có lời chào, giới thiệu hay bất kỳ nội dung nào khác):
+            {image_section}
+            YÊU CẦU:
+            Dựa trên thông tin bệnh nhân, kết quả phân tích AI{image_mention}, hãy đưa ra khuyến nghị y khoa với ĐÚNG 3 mục sau (KHÔNG có lời chào, giới thiệu hay bất kỳ nội dung nào khác):
 
-**NHẬN ĐỊNH LÂM SÀNG:**
-{assessment_instruction}
+            **NHẬN ĐỊNH LÂM SÀNG:**
+            {assessment_instruction}
 
-**KHUYẾN NGHỊ Y KHOA:**
-[Danh sách khuyến nghị cụ thể với thời gian và phương pháp rõ ràng]
+            **KHUYẾN NGHỊ Y KHOA:**
+            [Danh sách khuyến nghị cụ thể với thời gian và phương pháp rõ ràng]
 
-**LƯU Ý QUAN TRỌNG:**
-[Các lưu ý đặc biệt cho bệnh nhân]
+            **LƯU Ý QUAN TRỌNG:**
+            [Các lưu ý đặc biệt cho bệnh nhân]
 
-QUAN TRỌNG: Trả lời TRỰC TIẾP với 3 mục trên, không cần lời chào, giới thiệu hay bất kỳ nội dung nào khác. Hãy chuyên nghiệp, cụ thể và có giá trị thực hành."""
+            QUAN TRỌNG: Trả lời TRỰC TIẾP với 3 mục trên, không cần lời chào, giới thiệu hay bất kỳ nội dung nào khác. Hãy chuyên nghiệp, cụ thể và có giá trị thực hành."""
 
     try:
         model = genai.GenerativeModel(Config.GEMINI_MODEL)
