@@ -182,19 +182,130 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
 
 #### Predictions
 
-- `POST /api/predict/lung-cancer` - Lung cancer risk prediction
-  - Body: JSON với 23 thông số bệnh nhân
-- `POST /api/predict/tumor` - Tumor segmentation
-  - Body: FormData với file ảnh và threshold
-- `POST /api/predict/cancer-stage` - Cancer stage classification
-  - Body: FormData với file ảnh
+##### 1. Lung Cancer Risk Prediction
+
+```json
+POST /api/predict/lung-cancer
+Content-Type: application/json
+
+Body: {
+  "age": number,
+  "gender": 0|1,
+  "health_factors": {
+    "smoking_status": number,
+    "asbestos_exposure": number,
+    "family_history": number
+  }
+}
+
+Response: {
+  "risk_level": "Low|Medium|High",
+  "probability": number,
+  "confidence": number
+}
+```
+
+##### 2. Tumor Segmentation
+
+```json
+POST /api/predict/tumor
+Content-Type: multipart/form-data
+
+Body:
+  - file: image file (PNG, JPG, JPEG)
+  - threshold: number (0.1-0.9, default: 0.5)
+
+Response: {
+  "has_tumor": boolean,
+  "confidence": number,
+  "mask": base64_encoded_image,
+  "overlay": base64_encoded_image
+}
+```
+
+##### 3. Cancer Stage Classification
+
+```json
+POST /api/predict/cancer-stage
+Content-Type: multipart/form-data
+
+Body:
+  - file: image file (PNG, JPG, JPEG)
+
+Response: {
+  "stage": "Normal|Benign|Malignant",
+  "confidence": number
+}
+```
 
 #### AI Services
 
-- `POST /api/chat` - Chat with AI
-  - Body: JSON với message
-- `POST /api/recommendations` - Medical recommendations
-  - Body: JSON với kết quả phân tích
+##### 1. Chat with AI (Health Mode)
+
+```json
+POST /api/chat
+Content-Type: application/json
+
+Body: {
+  "message": string,
+  "conversation_history": [
+    { "role": "user|assistant", "content": string }
+  ],
+  "patient_info": {
+    "age": number,
+    "gender": 0|1,
+    "health_factors": { }
+  },
+  "diagnosis_result": {
+    "full_response": string,
+    "xgboost_result": { "risk_level": string, "probability": number },
+    "tumor_result": { "has_tumor": boolean, "confidence": number },
+    "cancer_stage": { "stage": string, "confidence": number }
+  }
+}
+
+Response: Server-Sent Events (SSE)
+  data: {"text": "AI response text"}
+  data: {"done": true}
+```
+
+##### 2. Medical Recommendations
+
+```json
+POST /api/recommendations
+Content-Type: application/json
+
+Body: {
+  "age": number,
+  "gender": 0|1,
+  "health_factors": { },
+  "xgboost_result": { "risk_level": string, "probability": number },
+  "tumor_result": { "has_tumor": boolean, "confidence": number },
+  "cancer_stage": { "stage": string, "confidence": number },
+  "overlay_image": "base64_encoded_image (optional)"
+}
+
+Response: {
+  "full_response": "NHẬN ĐỊNH LÂM SÀNG:...\n\nKHUYẾN NGHỊ Y KHOA:...\n\nLƯU Ý QUAN TRỌNG:...",
+  "xgboost_result": { },
+  "tumor_result": { },
+  "cancer_stage": { }
+}
+```
+
+#### System Prompt Context (Chat with Health Mode)
+
+Khi Health Mode bật, AI nhận được context đầy đủ:
+
+```text
+[BN] Tuổi:XX, GT:Nam/Nữ. Yếu tố: SM:8, HS:7, HT:5, KH:3
+[KQ] XGB:High | U:Có | Stage:Malignant
+[ASSESS] Phân tích tổng hợp tình trạng bệnh nhân... (1000 chars)
+```
+
+- `[BN]`: Thông tin bệnh nhân (tuổi, giới tính, tất cả health factors)
+- `[KQ]`: Kết quả model (XGBoost risk level, Tumor detection, Cancer stage)
+- `[ASSESS]`: Nhận định lâm sàng chi tiết từ recommendations API
 
 ## 🔧 Troubleshooting
 
