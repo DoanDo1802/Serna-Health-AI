@@ -36,6 +36,7 @@ interface ChatProps {
   }
   diagnosisResult?: {
     clinical_assessment: string
+    full_response: string
     recommendations: string
     important_notes: string
     xgboost_result?: {

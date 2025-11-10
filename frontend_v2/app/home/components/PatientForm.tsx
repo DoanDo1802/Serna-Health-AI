@@ -58,8 +58,9 @@ export function PatientForm({ formAge, setFormAge, gender, setGender, scores, se
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-white/60 mb-1">Giới tính</label>
+          <label htmlFor="patient-gender" className="block text-xs font-medium text-white/60 mb-1">Giới tính</label>
           <select
+            id="patient-gender"
             value={gender}
             onChange={(e) => setGender(Number(e.target.value))}
             className="w-full bg-neutral-900 border border-white/10 text-white text-sm rounded-md px-3 py-2"

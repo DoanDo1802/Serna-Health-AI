@@ -48,7 +48,9 @@ export function UserMenu({ user }: UserMenuProps) {
       <DropdownMenuTrigger asChild>
         <button type="button" className="focus:outline-none focus:ring-2 focus:ring-white/20 rounded-full">
           <Avatar className="h-6 w-6 border-2 border-white/10 hover:border-white/20 transition-colors">
-            <AvatarFallback className="bg-neutral-800 text-white text-xs">{getInitials(user.email || "U")}</AvatarFallback>
+            <AvatarFallback className="bg-neutral-800 text-white text-xs font-medium flex items-center justify-center">
+              {getInitials(user.email || "U")}
+            </AvatarFallback>
           </Avatar>
         </button>
       </DropdownMenuTrigger>

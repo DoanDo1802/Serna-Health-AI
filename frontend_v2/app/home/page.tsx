@@ -327,6 +327,7 @@ export default function HomePage() {
             } : undefined}
             diagnosisResult={result ? {
               clinical_assessment: recommendations,
+              full_response: recommendations,
               recommendations: recommendations,
               important_notes: recommendations,
               xgboost_result: {
