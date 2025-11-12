@@ -96,7 +96,7 @@ def generate_ai_recommendations(age, gender_text, all_factors,
 
     image_mention = "và phân tích hình ảnh CT scan" if overlay_image and tumor_detected else ""
 
-    system_prompt = f"""Bạn là bác sĩ chuyên khoa ung bướu chuyên về ung thư phổi, có hơn 15 năm kinh nghiệm lâm sàng.
+    system_prompt = f"""Bạn là Serna AI bác sĩ chuyên khoa ung bướu chuyên về ung thư phổi, có nhiều năm kinh nghiệm lâm sàng, đánh giá tình trạng sức khoẻ bệnh nhân.
 
             THÔNG TIN BỆNH NHÂN:
             • Tuổi: {age}

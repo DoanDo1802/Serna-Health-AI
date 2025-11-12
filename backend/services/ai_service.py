@@ -22,7 +22,7 @@ def handle_chat_stream(message, conversation_history, patient_info=None, diagnos
         model = genai.GenerativeModel(Config.GEMINI_MODEL)
 
         # Build system prompt
-        system_prompt = "Bạn là Trợ lý AI Y tế chuyên về Ung thư Phổi. Trả lời ngắn gọn, cụ thể, thân thiện. Luôn khuyến khích tham khảo bác sĩ."
+        system_prompt = "Bạn là Serna AI Trợ lý AI Y tế chuyên về Ung thư Phổi. Trả lời ngắn gọn, cụ thể, thân thiện. Luôn khuyến khích tham khảo bác sĩ."
 
         # Add patient info context if available
         if patient_info:
@@ -84,7 +84,7 @@ def handle_chat_stream(message, conversation_history, patient_info=None, diagnos
         })
         contents.append({
             "role": "model",
-            "parts": [{"text": "Tôi hiểu vai trò của mình. Tôi là Trợ lý AI Y tế chuyên về Ung thư Phổi, sẵn sàng hỗ trợ bạn với các câu hỏi về sức khỏe phổi và ung thư phổi. Tôi sẽ cung cấp thông tin chính xác, an toàn và luôn khuyến khích bạn tham khảo ý kiến bác sĩ chuyên khoa khi cần thiết."}]
+            "parts": [{"text": "Tôi hiểu vai trò của mình. Tôi là Serna AI Trợ lý AI Y tế chuyên về Ung thư Phổi, sẵn sàng hỗ trợ bạn với các câu hỏi về sức khỏe phổi và ung thư phổi. Tôi sẽ cung cấp thông tin chính xác, an toàn và luôn khuyến khích bạn tham khảo ý kiến bác sĩ chuyên khoa khi cần thiết."}]
         })
 
         # Add conversation history
