@@ -56,13 +56,31 @@ interface ChatProps {
 
 // Simple markdown formatter
 const formatMarkdown = (text: string): string => {
-  return text
+  let html = text
     // Bold text: **text** -> <strong>text</strong>
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    // Line breaks: \n -> <br>
-    .replace(/\n/g, '<br>')
-    // Warning emoji: ⚠️ -> styled warning
-    .replace(/⚠️/g, '<span style="color: #fbbf24;">⚠️</span>')
+
+  // Handle bullet points and line breaks
+  const lines = html.split('\n')
+  const processedLines: string[] = []
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+
+    // Handle bullet points: * text -> • text
+    if (trimmed.startsWith('* ')) {
+      const content = trimmed.substring(2)
+      processedLines.push(`<div style="margin-left: 1rem; margin-bottom: 0.5rem;">• ${content}</div>`)
+    } else if (trimmed) {
+      // Regular text
+      processedLines.push(`<div style="margin-bottom: 0.5rem;">${trimmed}</div>`)
+    } else {
+      // Empty line
+      processedLines.push('<div style="margin-bottom: 0.5rem;"></div>')
+    }
+  }
+
+  return processedLines.join('')
 }
 
 export default function Chat({ messages, setMessages, isLoading, setIsLoading, hasPatientInfo = false, patientInfo, diagnosisResult }: ChatProps) {
