@@ -7,7 +7,7 @@ import { AlertTriangle, CheckCircle, Shield, Activity, Target, Zap } from "lucid
 export interface DiagnosisCardProps {
   // Chẩn đoán theo thông tin bệnh nhân (XGBoost)
   patientInfoDiagnosis?: {
-    cancer_probability: 'low' | 'moderate' | 'high';
+    cancer_probability: 'Low' | 'Medium' | 'High';
     risk_score: number;
   };
   
@@ -29,7 +29,7 @@ export interface DiagnosisCardProps {
 export function DiagnosisCard({ patientInfoDiagnosis, imageDiagnosis }: DiagnosisCardProps) {
   const getRiskConfig = (probability: string) => {
     switch (probability) {
-      case 'high':
+      case 'High':
         return {
           color: 'destructive',
           bgColor: 'bg-red-500/10',
@@ -38,7 +38,7 @@ export function DiagnosisCard({ patientInfoDiagnosis, imageDiagnosis }: Diagnosi
           icon: AlertTriangle,
           label: 'Nguy cơ cao'
         }
-      case 'moderate':
+      case 'Medium':
         return {
           color: 'secondary',
           bgColor: 'bg-yellow-500/10',

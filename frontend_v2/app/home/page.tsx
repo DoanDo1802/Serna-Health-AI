@@ -69,7 +69,7 @@ export default function HomePage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [result, setResult] = useState<null | {
     risk: number;
-    label: string;
+    label: 'Low' | 'Medium' | 'High';
     tumorResult?: {
       has_tumor: boolean;
       tumor_area: number;
@@ -171,22 +171,17 @@ export default function HomePage() {
     })
   }
 
-  const normalizeLungResponse = (resp: any): { risk: number; label: 'High risk'|'Moderate risk'|'Low risk' } => {
+  const normalizeLungResponse = (resp: any): { risk: number; label: 'Low'|'Medium'|'High' } => {
     try {
-      // Backend now returns prediction as string label
+      // Backend returns prediction as string label: "Low", "Medium", "High"
       const prediction = resp.prediction ?? 'Low'
-
-      // Map backend prediction to frontend format
-      const label: 'High risk'|'Moderate risk'|'Low risk' =
-        prediction === 'High' ? 'High risk' :
-        prediction === 'Medium' ? 'Moderate risk' : 'Low risk'
 
       // Set risk number based on label for UI purposes
       const riskNum = prediction === 'High' ? 0.8 : prediction === 'Medium' ? 0.5 : 0.2
 
-      return { risk: riskNum, label }
+      return { risk: riskNum, label: prediction as 'Low'|'Medium'|'High' }
     } catch {
-      return { risk: 0, label: 'Low risk' }
+      return { risk: 0, label: 'Low' }
     }
   }
 
@@ -282,7 +277,7 @@ export default function HomePage() {
       const ageFactor = Math.min(1, Math.max(0, (formAge - 30) / 50))
       const genderFactor = gender === 1 ? 1.05 : 1.0
       const risk = Math.min(1, (sum / maxSum) * 0.85 * genderFactor + ageFactor * 0.15)
-      const label = risk > 0.66 ? "High risk" : risk > 0.33 ? "Moderate risk" : "Low risk"
+      const label: 'Low'|'Medium'|'High' = risk > 0.66 ? "High" : risk > 0.33 ? "Medium" : "Low"
 
       setResult({ risk, label })
       if (!showPreview) setShowPreview(true)
@@ -476,12 +471,7 @@ export default function HomePage() {
                           {/* Right: Diagnosis card */}
                           <DiagnosisCard
                             patientInfoDiagnosis={{
-                              cancer_probability:
-                                (result!.label === 'High risk'
-                                  ? 'high'
-                                  : result!.label === 'Moderate risk'
-                                  ? 'moderate'
-                                  : 'low'),
+                              cancer_probability: result!.label,
                               risk_score: Math.round(result!.risk * 100),
                             }}
                             imageDiagnosis={{

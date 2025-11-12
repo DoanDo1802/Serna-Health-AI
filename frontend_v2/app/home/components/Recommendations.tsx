@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 
 export interface RecommendationsProps {
   risk: number
-  label: string
+  label: 'Low' | 'Medium' | 'High'
   tumorDetected?: boolean
   tumorConfidence?: number
   cancerStage?: {
@@ -117,10 +117,10 @@ export function Recommendations({ risk, label, tumorDetected = false, cancerStag
   const [isLoading, setIsLoading] = useState(false)
   const [hasLoaded, setHasLoaded] = useState(false)
 
-  // Fallback recommendations
-  const fallbackItems = risk > 0.66
+  // Fallback recommendations based on label
+  const fallbackItems = label === 'High'
     ? ['Ưu tiên khám chuyên khoa hô hấp/ung bướu', 'Theo dõi CT liều thấp và xét nghiệm bổ sung', 'Chương trình cai thuốc lá và giảm yếu tố nguy cơ']
-    : risk > 0.33
+    : label === 'Medium'
     ? ['Lên lịch tầm soát hoặc tái khám theo hướng dẫn', 'Thay đổi lối sống: bỏ thuốc, vận động, dinh dưỡng', 'Theo dõi triệu chứng và khám định kỳ']
     : ['Duy trì lối sống lành mạnh, tầm soát định kỳ', 'Hạn chế khói bụi và khói thuốc thụ động', 'Đánh giá lại yếu tố nguy cơ hằng năm']
 
