@@ -99,7 +99,7 @@ Edit `config.py` to modify:
 - **Files**: `models/lung_cancer_xgb_model.pkl`, `models/lung_cancer_scaler.pkl`
 - **Purpose**: Predict lung cancer risk
 - **Input**: 23 patient features (age, gender, smoking, etc.)
-- **Output**: Risk probability (0-1)
+- **Output**: 'Low' | 'Medium' | 'High'
 - **Framework**: XGBoost
 
 ### 3. YOLO Model (Cancer Classification)
