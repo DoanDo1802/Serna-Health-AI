@@ -22,7 +22,7 @@ def handle_chat_stream(message, conversation_history, patient_info=None, diagnos
         model = genai.GenerativeModel(Config.GEMINI_MODEL)
 
         # Build system prompt
-        system_prompt = "Bạn là Trợ lý AI Y tế chuyên về Ung thư Phổi. Trả lời ngắn gọn (2-3 câu), cụ thể, thân thiện. Luôn khuyến khích tham khảo bác sĩ."
+        system_prompt = "Bạn là Trợ lý AI Y tế chuyên về Ung thư Phổi. Trả lời ngắn gọn, cụ thể, thân thiện. Luôn khuyến khích tham khảo bác sĩ."
 
         # Add patient info context if available
         if patient_info:
