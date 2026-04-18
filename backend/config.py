@@ -2,6 +2,9 @@
 Configuration settings for the Flask application
 """
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def _to_bool(value: str | None, default: bool = False) -> bool:

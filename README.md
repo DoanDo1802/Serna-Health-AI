@@ -53,8 +53,8 @@ Nền tảng phân tích ung thư phổi end-to-end (Frontend + Backend + AI Mod
 |---|---|
 
 | UI sample 1 | ![Sample 1](frontend_v2/public/images/demo1.jpg) |
-| UI sample 2 | ![Sample 2](frontend_v2/public/images/demo2.jpg) |
-| UI sample 3 | ![Sample 3](frontend_v2/public/images/demo3.jpg) |
+| UI sample 2 | ![Sample 2](frontend_v2/public/images/demo_new1.jpeg) |
+| UI sample 3 | ![Sample 3](frontend_v2/public/images/demo_new2.jpeg) |
 
 
 ## Cấu trúc thư mục
