@@ -14,6 +14,8 @@ import ImageModal from "@/components/ImageModal"
 import { createClient } from "@/lib/supabase/client"
 import type { User } from "@supabase/supabase-js"
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001"
+
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null)
   const [isLoadingUser, setIsLoadingUser] = useState(true)
@@ -199,7 +201,7 @@ export default function HomePage() {
       }
 
       // Call lung cancer prediction API
-      const lungCancerResponse = await fetch('http://localhost:5001/api/predict/lung-cancer', {
+      const lungCancerResponse = await fetch(`${API_BASE_URL}/api/predict/lung-cancer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -225,7 +227,7 @@ export default function HomePage() {
         formData.append('threshold', '0.5')
 
         // Call tumor segmentation API
-        const tumorResponse = await fetch('http://localhost:5001/api/predict/tumor', {
+        const tumorResponse = await fetch(`${API_BASE_URL}/api/predict/tumor`, {
           method: 'POST',
           body: formData
         })
@@ -243,7 +245,7 @@ export default function HomePage() {
         const stageFormData = new FormData()
         stageFormData.append('image', selectedFile)
 
-        const stageResponse = await fetch('http://localhost:5001/api/predict/cancer-stage', {
+        const stageResponse = await fetch(`${API_BASE_URL}/api/predict/cancer-stage`, {
           method: 'POST',
           body: stageFormData
         })

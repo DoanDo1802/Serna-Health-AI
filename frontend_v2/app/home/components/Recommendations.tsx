@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001"
+
 export interface RecommendationsProps {
   risk: number
   label: 'Low' | 'Medium' | 'High'
@@ -148,7 +150,7 @@ export function Recommendations({ risk, label, tumorDetected = false, cancerStag
       // Filter out cancer stage if confidence < 20%
       const filteredCancerStage = cancerStage && cancerStage.confidence >= 0.2 ? cancerStage : undefined
 
-      const response = await fetch('http://localhost:5001/api/recommendations', {
+      const response = await fetch(`${API_BASE_URL}/api/recommendations`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

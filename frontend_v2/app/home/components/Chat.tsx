@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Send } from "lucide-react"
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001"
+
 // CSS để ẩn scrollbar
 const scrollbarHideStyle = `
   .scrollbar-hide::-webkit-scrollbar {
@@ -123,7 +125,7 @@ export default function Chat({ messages, setMessages, isLoading, setIsLoading, h
       }
 
       // Call chat API
-      const response = await fetch('http://localhost:5001/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

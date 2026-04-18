@@ -6,6 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"No automated tests configured yet\" && exit 0",
     "start": "next start"
   },
   "dependencies": {

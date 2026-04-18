@@ -1,25 +1,21 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import type { CSSProperties } from "react"
-import { animate, inView, stagger } from "motion"
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react"
+import { inView } from "motion"
 
 type RevealOnViewProps = {
-  as?: keyof JSX.IntrinsicElements
+  as?: string
   className?: string
-  children: React.ReactNode
-  /** Optional delay per item for staggered lists */
+  children: ReactNode
   delay?: number
   style?: CSSProperties
-  /** If true, applies a stronger lift/blur for hero content */
   intensity?: "soft" | "hero"
-  /** If true, will animate immediate children in a staggered sequence */
   staggerChildren?: boolean
 }
 
-export default function RevealOnView({ as = "div", className, children, delay = 0, style, intensity = "soft", staggerChildren = false }: RevealOnViewProps) {
-  const Tag = as as any
-  const ref = useRef<HTMLElement | null>(null)
+export default function RevealOnView({ as, className, children, delay = 0, style, intensity = "soft", staggerChildren = false }: RevealOnViewProps) {
+  void as
+  const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const element = ref.current
@@ -30,7 +26,6 @@ export default function RevealOnView({ as = "div", className, children, delay = 
     const startScale = intensity === "hero" ? 0.97 : 0.985
 
     if (staggerChildren) {
-      // Parent stays visible; children will handle their own initial state
       element.style.opacity = "1"
       element.style.transform = "none"
       element.style.filter = "none"
@@ -41,32 +36,34 @@ export default function RevealOnView({ as = "div", className, children, delay = 
     }
 
     const cleanup = inView(element, () => {
-      const targets = staggerChildren
-        ? Array.from(element.children) as HTMLElement[]
-        : [element]
+      const targets = staggerChildren ? (Array.from(element.children) as HTMLElement[]) : [element]
 
-      // Initialize all targets if we're staggering children
-      if (staggerChildren) {
-        targets.forEach((t) => {
-          t.style.opacity = "0"
-          t.style.transform = `translateY(${startTranslate}px) scale(${startScale})`
-          t.style.filter = `blur(${startBlur}px)`
-        })
-      }
+      targets.forEach((target, index) => {
+        target.style.opacity = "0"
+        target.style.transform = `translateY(${startTranslate}px) scale(${startScale})`
+        target.style.filter = `blur(${startBlur}px)`
 
-      animate(
-        targets,
-        { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0px)" },
-        { duration: 0.6, delay: targets.length > 1 ? stagger(0.08, { start: delay }) : delay, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
-      )
+        target.animate(
+          [
+            { opacity: 0, transform: `translateY(${startTranslate}px) scale(${startScale})`, filter: `blur(${startBlur}px)` },
+            { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0px)" },
+          ],
+          {
+            duration: 600,
+            delay: (delay + (targets.length > 1 ? index * 0.08 : 0)) * 1000,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            fill: "forwards",
+          }
+        )
+      })
     })
 
     return () => cleanup()
-  }, [delay])
+  }, [delay, intensity, staggerChildren])
 
   return (
-    <Tag ref={ref} className={className} style={style}>
+    <div ref={ref} className={className} style={style}>
       {children}
-    </Tag>
+    </div>
   )
 }

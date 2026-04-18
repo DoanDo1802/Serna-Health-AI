@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL(siteUrl),
   title: 'Serna Health AI - Medical AI Analysis Platform',
   description: 'Advanced AI-powered medical imaging analysis platform for lung cancer detection, tumor segmentation, and clinical recommendations',
   generator: 'Next.js',

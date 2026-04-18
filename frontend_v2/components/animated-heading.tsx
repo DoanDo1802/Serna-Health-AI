@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useMemo, useRef } from "react"
-import { animate, stagger } from "motion"
 import { cn } from "@/lib/utils"
 
 type AnimatedHeadingProps = {
@@ -61,21 +60,25 @@ export default function AnimatedHeading({
       wordsByLine.set(lineIndex, arr)
     })
 
-    // Animate each line with an additional line offset, words within the line staggered
     ;[...wordsByLine.entries()]
       .sort((a, b) => a[0] - b[0])
       .forEach(([lineIndex, words]) => {
-        animate(
-          words,
-          { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
-          {
-            duration: durationPerWord,
-            delay: stagger(staggerPerWord, { start: startDelay + lineIndex * lineDelay }),
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          }
-        )
+        words.forEach((word, wordIndex) => {
+          word.animate(
+            [
+              { opacity: 0, filter: `blur(${fromBlurPx}px)`, transform: `translateY(${fromTranslateYPx}px)` },
+              { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
+            ],
+            {
+              duration: durationPerWord * 1000,
+              delay: (startDelay + lineIndex * lineDelay + wordIndex * staggerPerWord) * 1000,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              fill: "forwards",
+            }
+          )
+        })
       })
-  }, [startDelay])
+  }, [durationPerWord, fromBlurPx, fromTranslateYPx, lineDelay, startDelay, staggerPerWord])
 
   return (
     <h1 ref={headingRef} className={cn(className)} aria-label={lines.join(" ")}> 
