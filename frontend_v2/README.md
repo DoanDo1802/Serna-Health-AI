@@ -34,8 +34,10 @@ cp .env.example .env.local
 
 # Edit .env.local with your configuration
 NEXT_PUBLIC_API_URL=http://localhost:5001
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+NEXT_PUBLIC_SUPABASE_REDIRECT_URL=http://localhost:3000/home
 
 # Run development server
 npm run dev
@@ -187,8 +189,10 @@ Create `.env.local`:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5001
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+NEXT_PUBLIC_SUPABASE_REDIRECT_URL=http://localhost:3000/home
 ```
 
 ### Tailwind Configuration

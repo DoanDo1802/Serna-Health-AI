@@ -51,17 +51,11 @@ Nền tảng phân tích ung thư phổi end-to-end (Frontend + Backend + AI Mod
 
 | Màn hình | Ảnh |
 |---|---|
+
 | UI sample 1 | ![Sample 1](frontend_v2/public/images/demo1.jpg) |
 | UI sample 2 | ![Sample 2](frontend_v2/public/images/demo2.jpg) |
 | UI sample 3 | ![Sample 3](frontend_v2/public/images/demo3.jpg) |
 
-## Kết quả mô hình sau khi train
-
-| Mô hình | Ảnh kết quả |
-|---|---|
-| YOLO (classification) | ![YOLO Result](frontend_v2/public/images/yolo.png) |
-| U-Net (segmentation) - Run 1 | ![UNet Result 1](frontend_v2/public/images/unet.jpeg) |
-| U-Net (segmentation) - Run 2 | ![UNet Result 2](frontend_v2/public/images/unet2.jpeg) |
 
 ## Cấu trúc thư mục
 
@@ -102,11 +96,17 @@ Xem hướng dẫn nhanh tại `QUICK_START.md`.
 - `NEXT_PUBLIC_SITE_URL`
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_REDIRECT_URL`
+
+## Khôi phục Supabase khi bị xóa project
+
+- Chạy SQL baseline tại `supabase/sql/001_auth_baseline.sql`.
+- Làm theo checklist tại `supabase/SETUP.md`.
+- Đảm bảo Auth đã bật Email provider và cấu hình redirect URL đúng.
 
 ## Giới hạn hiện tại
 
 - Chưa deploy production trong phiên bản này (theo scope hiện tại).
-- Chưa có bộ test tự động đầy đủ cho toàn bộ luồng.
 - Kết quả AI recommendation mang tính hỗ trợ tham khảo, không thay thế chẩn đoán bác sĩ.
 
 ## Hướng phát triển tiếp
