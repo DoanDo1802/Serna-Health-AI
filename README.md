@@ -1,118 +1,85 @@
-# Serna Health AI
+# Serna Health AI 🩺
 
-Nền tảng phân tích ung thư phổi end-to-end (Frontend + Backend + AI Models)
+**Nền tảng phân tích ung thư phổi End-to-End (AI-Powered Lung Cancer Analysis Platform)**
 
-## Mục tiêu dự án
+Serna Health AI là giải pháp toàn diện hỗ trợ các chuyên gia y tế trong việc đánh giá nguy cơ, phân đoạn vùng tổn thương và phân loại giai đoạn ung thư phổi thông qua sức mạnh của trí tuệ nhân tạo (AI).
 
-- Hỗ trợ đánh giá nguy cơ ung thư phổi từ dữ liệu bệnh nhân.
-- Phân đoạn vùng nghi ngờ tổn thương trên ảnh CT.
-- Phân loại giai đoạn (Normal / Benign / Malignant).
-- Sinh khuyến nghị y khoa bằng LLM dựa trên kết quả mô hình.
+---
 
-## Giá trị kỹ thuật thể hiện trong portfolio
+## 🌟 Tính năng cốt lõi
 
-- Thiết kế full-stack: Next.js (UI) + Flask (API) + nhiều mô hình ML/DL.
-- Tách lớp backend rõ ràng theo routes/services/models/utils.
-- Kết hợp nhiều pipeline AI trong một luồng UX duy nhất.
-- Có authentication bằng Supabase, chat AI theo ngữ cảnh bệnh nhân.
+*   **Risk Prediction**: Đánh giá nguy cơ ung thư (Thấp/Trung bình/Cao) dựa trên 23 thông số lâm sàng và lối sống.
+*   **Tumor Segmentation**: Tự động phân đoạn vùng nghi ngờ tổn thương trên ảnh CT bằng mô hình U-Net.
+*   **Stage Classification**: Phân loại tình trạng phổi (Bình thường / Lành tính / Ác tính) sử dụng YOLOv8.
+*   **AI Medical Chat**: Hỗ trợ giải thích kết quả và đưa ra khuyến nghị y khoa thông qua mô hình ngôn ngữ lớn (Gemini LLM).
+*   **Full End-to-End Pipeline**: Quy trình khép kín từ khâu tiếp nhận dữ liệu đến báo cáo tổng hợp.
 
-## Kiến trúc tổng quan
+---
 
-- **Frontend**: Next.js 15 + TypeScript + Tailwind + Radix UI
-- **Backend**: Flask + CORS
-- **Models**:
-  - U-Net (`improved_unet_final.h5`) cho segmentation
-  - XGBoost (`lung_cancer_xgb_model.pkl`) cho risk prediction
-  - YOLO (`lungcancer-cls.pt`) cho cancer stage classification
-- **AI Recommendation**: Gemini API
-- **Auth/DB**: Supabase
+## 🛠️ Công nghệ sử dụng
 
-## Tính năng chính
+| Lớp (Layer) | Công nghệ chính |
+| :--- | :--- |
+| **Frontend** | [Next.js 15](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/) |
+| **Backend** | [Flask (Python)](https://flask.palletsprojects.com/), Modular Architecture |
+| **Authentication** | [Supabase Auth](https://supabase.com/auth) |
+| **AI Models** | [U-Net](https://arxiv.org/abs/1505.04597) (Segmentation), [XGBoost](https://xgboost.readthedocs.io/) (Risk), [YOLOv8](https://docs.ultralytics.com/) (Cls) |
+| **LLM Engine** | [Google Gemini API](https://ai.google.dev/) |
 
-1. **Lung Cancer Risk Prediction**
-   - Form 23 thông số sức khỏe/lối sống
-   - Trả kết quả Low / Medium / High
+---
 
-2. **Tumor Segmentation**
-   - Upload ảnh CT (PNG/JPG)
-   - Trả mask và thông tin vùng nghi ngờ
+## 📁 Cấu trúc dự án
 
-3. **Cancer Stage Classification**
-   - Phân loại: Normal / Benign / Malignant
-   - Trả confidence score
-
-4. **AI Recommendations + Chat**
-   - Tổng hợp kết quả từ nhiều mô hình
-   - Đưa ra nhận định và khuyến nghị y khoa dạng hội thoại
-
-## Screenshot demo (không dùng video)
-
-> Ảnh demo đang dùng asset sẵn có trong repo.
-
-| Màn hình | Ảnh |
-|---|---|
-
-| UI sample 1 | ![Sample 1](frontend_v2/public/images/demo1.jpg) |
-| UI sample 2 | ![Sample 2](frontend_v2/public/images/demo_new1.jpeg) |
-| UI sample 3 | ![Sample 3](frontend_v2/public/images/demo_new2.jpeg) |
-
-
-## Cấu trúc thư mục
-
-```text
+```bash
 serna-v2/
-├── backend/
-│   ├── app.py
-│   ├── config.py
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   └── utils/
-├── frontend_v2/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   └── public/
-├── QUICK_START.md
-└── README.md
+├── backend/            # API Service (Flask)
+│   ├── models/         # AI Model files (.h5, .pkl, .pt)
+│   ├── routes/         # API Endpoints
+│   ├── services/       # Business & AI Logic
+│   └── utils/          # Helper modules
+├── frontend_v2/        # Web Application (Next.js)
+│   ├── app/            # Next.js Pages & Routes
+│   ├── components/     # UI Components (Shadcn/UI)
+│   └── lib/            # Shared utilities & API calls
+├── supabase/           # Database schema & Setup scripts
+├── QUICK_START.md      # Hướng dẫn cài đặt nhanh
+└── README.md           # Tài liệu dự án
 ```
 
-## Chạy local
+---
 
-Xem hướng dẫn nhanh tại `QUICK_START.md`.
+## 🚀 Bắt đầu nhanh
 
-## Biến môi trường chính
+Để cài đặt và chạy dự án dưới môi trường local, vui lòng làm theo hướng dẫn chi tiết tại:
 
-### Backend (`backend/.env`)
+👉 **[HƯỚNG DẪN CÀI ĐẶT NHANH (QUICK_START.md)](./QUICK_START.md)**
 
-- `DEBUG`
-- `SECRET_KEY`
-- `CORS_ORIGINS`
-- `GEMINI_API_KEY`
+### Cấu hình môi trường (Tóm tắt)
 
-### Frontend (`frontend_v2/.env.local`)
+1.  **Backend**: Cài đặt Python 3.10+, cài đặt dependencies từ `requirements.txt`.
+2.  **Frontend**: Cài đặt Node.js 18+, chạy `npm install`.
+3.  **Environment**: Cấu hình các file `.env` (Backend) và `.env.local` (Frontend) với các API Key cần thiết (Gemini, Supabase).
 
-- `NEXT_PUBLIC_API_URL`
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_SUPABASE_REDIRECT_URL`
+---
 
-## Khôi phục Supabase khi bị xóa project
+## 📸 Hình ảnh minh họa
 
-- Chạy SQL baseline tại `supabase/sql/001_auth_baseline.sql`.
-- Làm theo checklist tại `supabase/SETUP.md`.
-- Đảm bảo Auth đã bật Email provider và cấu hình redirect URL đúng.
+| Dashboard & Phân tích | Phân đoạn vùng tổn thương |
+|:---:|:---:|
+| ![Demo 1](frontend_v2/public/images/demo1.jpg) | ![Demo 2](frontend_v2/public/images/demo_new1.jpeg) |
 
-## Giới hạn hiện tại
+---
 
-- Chưa deploy production trong phiên bản này (theo scope hiện tại).
-- Kết quả AI recommendation mang tính hỗ trợ tham khảo, không thay thế chẩn đoán bác sĩ.
+## ⚠️ Tuyên bố miễn trừ trách nhiệm (Medical Disclaimer)
 
-## Hướng phát triển tiếp
+Dự án này được phát triển cho mục đích nghiên cứu và hỗ trợ kỹ thuật. Kết quả trả về từ các mô hình AI **không thay thế** cho các chẩn đoán chuyên môn từ bác sĩ hoặc các cơ sở y tế có thẩm quyền. Vui lòng tham vấn chuyên gia y tế trước khi đưa ra bất kỳ quyết định nào liên quan đến sức khỏe.
 
-- Bổ sung integration/e2e tests cho luồng chẩn đoán.
-- Đóng gói CI checks (lint, typecheck, build).
-- Chuẩn hóa observability và error tracking.
-- Triển khai staging/prod khi hoàn tất hardening.
+---
+
+## 🤝 Liên hệ & Đóng góp
+
+Mọi phản hồi và đóng góp nhằm cải thiện hệ thống luôn được chào đón. Vui lòng tạo Issue hoặc Pull Request nếu bạn phát hiện lỗi hoặc có ý tưởng mới.
+
+---
+**Serna Health AI** - *Vì một cộng đồng khỏe mạnh hơn thông qua công nghệ.*
 
