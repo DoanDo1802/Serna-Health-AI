@@ -1,35 +1,42 @@
-# Supabase Setup (Fresh Project)
+# Thiết lập Supabase (Supabase Configuration Guide) ⚡
 
-Hướng dẫn khởi tạo lại Supabase khi project cũ đã bị xóa.
+Tài liệu này hướng dẫn chi tiết cách khởi tạo và cấu hình Supabase cho dự án Serna Health AI.
 
-## 1) Tạo project Supabase mới
+---
 
-- Vào Supabase Dashboard
-- Create new project
-- Chờ project khởi tạo xong
+## 1. Khởi tạo Dự án
+1. Truy cập [Supabase Dashboard](https://supabase.com/dashboard).
+2. Tạo một dự án (Project) mới.
+3. Đợi quá trình khởi tạo dự án hoàn tất.
 
-## 2) Chạy SQL bootstrap
+---
 
-- Mở SQL Editor
-- Copy toàn bộ nội dung từ `supabase/sql/001_auth_baseline.sql`
-- Run
+## 2. Thiết lập Schema & Dữ liệu
+1. Truy cập vào mục **SQL Editor** trên thanh menu trái.
+2. Sao chép toàn bộ nội dung trong file [supabase/sql/001_auth_baseline.sql](../supabase/sql/001_auth_baseline.sql).
+3. Nhấn **Run** để thực thi.
 
-SQL này tạo bảng `public.profiles`, bật RLS, policies cơ bản và trigger tự tạo profile khi user đăng ký.
+> **Lưu ý**: Tập lệnh này sẽ khởi tạo bảng `public.profiles`, thiết lập Row Level Security (RLS), các Policy bảo mật cơ bản và Trigger tự động tạo profile khi người dùng đăng ký tài khoản.
 
-## 3) Cấu hình Auth
+---
 
-Trong Authentication > Providers:
-- Bật Email provider
+## 3. Cấu hình Authentication
+Truy cập **Authentication** trên dashboard và thực hiện các bước sau:
 
-Trong Authentication > URL Configuration:
-- Site URL (local): `http://localhost:3000`
-- Additional Redirect URLs:
-  - `http://localhost:3000/home`
-  - (nếu cần) domain deploy của bạn sau này
+### Kích hoạt Provider
+- Tại mục **Providers**, đảm bảo **Email** đã được bật (Enabled).
 
-## 4) Cập nhật biến môi trường frontend
+### Cấu hình URL
+Tại mục **URL Configuration**:
+- **Site URL**: `http://localhost:3000`
+- **Redirect URLs**:
+    - `http://localhost:3000/home`
+    - *(Bổ sung domain production nếu có)*
 
-Trong `frontend_v2/.env.local`:
+---
+
+## 4. Cấu hình Frontend
+Cập nhật các thông số từ dự án Supabase vào file `frontend_v2/.env.local`:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
@@ -39,15 +46,17 @@ SUPABASE_ANON_KEY=your-anon-key
 NEXT_PUBLIC_SUPABASE_REDIRECT_URL=http://localhost:3000/home
 ```
 
-## 5) Kiểm tra nhanh
+---
 
-1. Chạy app local.
-2. Đăng ký user mới ở `/register`.
-3. Xác nhận email.
-4. Đăng nhập lại và vào `/home`.
+## 5. Kiểm tra hệ thống (Verification)
+1. Khởi động ứng dụng Next.js local.
+2. Thực hiện đăng ký tài khoản mới tại trang `/register`.
+3. Xác nhận email (nếu bật tính năng Confirm Email).
+4. Đăng nhập và truy cập vào trang Dashboard (`/home`).
 
-## Security notes
+---
 
-- Không đưa `service_role` key vào frontend.
-- Chỉ dùng `anon key` ở phía client.
-- Giữ secret trong `.env.local`, không commit file chứa secret.
+## 🛡️ Lưu ý về Bảo mật
+*   **TUYỆT ĐỐI KHÔNG** chia sẻ `service_role` key trong mã nguồn frontend hoặc client-side.
+*   Chỉ sử dụng `anon key` cho các tác vụ phía Client.
+*   Quản lý thông tin nhạy cảm thông qua biến môi trường (`.env`) và **KHÔNG** commit các file này lên Git.
